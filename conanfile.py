@@ -1,8 +1,8 @@
 from conans import ConanFile, CMake, tools
 import sys, os, shutil
 
-class GumboparserConan(ConanFile):
-    name = "GumboParser"
+class GumboConan(ConanFile):
+    name = "Gumbo"
     version = "0.10.1"
     license = "Apache License 2.0"
     url = "https://github.com/altairwei/conan-gumbo-parser"
