@@ -1,6 +1,11 @@
 from cpt.packager import ConanMultiPackager
+import platform
 
 if __name__ == "__main__":
-    builder = ConanMultiPackager(username="altairwei", archs=["x86_64"], build_policy="missing")
-    builder.add_common_builds(pure_c=True)
+    builder = ConanMultiPackager(username="altairwei", build_policy="missing", 
+        archs=["x86_64"], visual_versions=["15"], gcc_versions=["7"])
+    if platform.system() == "Windows":
+        builder.add_common_builds(pure_c=False, shared_option_name=False)
+    else:
+        builder.add_common_builds(pure_c=False)
     builder.run()
