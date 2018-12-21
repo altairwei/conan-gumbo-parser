@@ -8,15 +8,14 @@ class GumboConan(ConanFile):
     url = "https://github.com/altairwei/conan-gumbo-parser"
     description = "An HTML5 parsing library in pure C99."
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
+    options = {"shared": [True, False], "fPIC": [True, False]}
     exports_sources = ["CMakeLists.txt"]
-    default_options = {'shared': False}
+    default_options = {'shared': False, "fPIC": True}
     generators = "cmake"
     _source_subfolder = "source_subfolder"
 
     def config_options(self):
         if self.settings.os == "Windows":
-            self.options.remove("fPIC")
             self.options.remove("shared")
 
     def source(self):
@@ -36,6 +35,7 @@ class GumboConan(ConanFile):
             cmake.definitions["BUILD_SHARED_LIBS"] = False
         else:
             cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
+            cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.fPIC
         cmake.configure(source_folder=self._source_subfolder)
         cmake.build()
 
