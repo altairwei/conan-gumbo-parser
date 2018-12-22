@@ -16,6 +16,7 @@ class GumboConan(ConanFile):
 
     def config_options(self):
         if self.settings.os == "Windows":
+            self.options.remove("fPIC")
             self.options.remove("shared")
 
     def source(self):
